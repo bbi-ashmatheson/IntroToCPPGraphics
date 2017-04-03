@@ -57,4 +57,9 @@ project "intro01"
   files {
     path.join(PROJ_DIR, "src/**.h"),
     path.join(PROJ_DIR, "src/**.cpp"),
+    path.join(PROJ_DIR, "src/Intro01.rc")
+  }
+
+  resoptions {
+    "CPPD3DIntroduction.rc"
   }

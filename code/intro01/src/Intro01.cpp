@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "Intro01.h"
 #include "Resource.h"
 
 //==============================================
@@ -96,12 +97,12 @@ HRESULT InitWindow( HINSTANCE _instance, int _cmdShow )
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = _instance;
-    wcex.hIcon = LoadIcon( _instance, ( LPCTSTR )IDI_CPPD3DINTRODUCTION );
+    wcex.hIcon = LoadIcon( _instance, ( LPCTSTR )IDI_INTRO01 );
     wcex.hCursor = LoadCursor( NULL, IDC_ARROW );
     wcex.hbrBackground = ( HBRUSH )( COLOR_WINDOW + 1 );
     wcex.lpszMenuName = NULL;
     wcex.lpszClassName = L"WTGTP_01";
-    wcex.hIconSm = LoadIcon( wcex.hInstance, ( LPCTSTR )IDI_CPPD3DINTRODUCTION );
+    wcex.hIconSm = LoadIcon( wcex.hInstance, ( LPCTSTR )IDI_INTRO01 );
     if( !RegisterClassEx( &wcex ) )
     {
         return E_FAIL;
