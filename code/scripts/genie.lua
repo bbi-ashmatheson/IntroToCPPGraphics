@@ -43,6 +43,11 @@ configuration "Release"
   links {"D3D11", "D3DCompiler"}
   links {"kernel32","user32","gdi32","winspool","comdlg32","advapi32","shell32","ole32","oleaut32","uuid","odbc32","odbccp32"}
 
+project "dummy"
+    kind "ConsoleApp"
+    files { "dummy.c" }
+    excludes { "dummy.c" }
+
 -- our first project
 project "intro01"
   PROJ_DIR = path.join(WORKSPACE_DIR, "intro01")
@@ -51,13 +56,15 @@ project "intro01"
   kind "WindowedApp"
 
   includedirs {
-    path.join(PROJ_DIR, "src")
+    path.join(PROJ_DIR, "src"),
+    path.join(THIRD_PARTY_DIR, "EASTL/include"),
   }
 
   files {
     path.join(PROJ_DIR, "src/**.h"),
     path.join(PROJ_DIR, "src/**.cpp"),
-    path.join(PROJ_DIR, "src/Intro01.rc")
+    path.join(PROJ_DIR, "src/Intro01.rc"),
+    path.join(THIRD_PARTY_DIR, "EASTL/source/*.cpp")
   }
 
   resoptions {
