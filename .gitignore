@@ -31,3 +31,4 @@ code/projects/
 code/win32_vs2017/
 *.aps
 /code/intro01/src/Intro01.aps
+/code/win64_vs2017
