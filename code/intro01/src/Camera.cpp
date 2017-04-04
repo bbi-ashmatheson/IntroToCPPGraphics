@@ -17,6 +17,13 @@ Camera::Camera(void)
 
 Camera::Camera( Camera &_camera )
 {
+    m_positionX = _camera.m_positionX;
+    m_positionY = _camera.m_positionY;
+    m_positionZ = _camera.m_positionZ;
+
+    m_rotationX = _camera.m_rotationX;
+    m_rotationY = _camera.m_rotationY;
+    m_rotationZ = _camera.m_rotationZ;
 }
 
 
