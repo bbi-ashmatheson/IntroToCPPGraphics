@@ -31,27 +31,47 @@ if not toolchain(WORKSPACE_DIR, THIRD_PARTY_DIR) then
 	return -- no action specified
 end
 
+local PDB_DIR = path.join(path.join(path.join(WORKSPACE_DIR,"projects"), _ACTION), "pdbs")
+os.mkdir(PDB_DIR)
+
 -- configureations for Debug
-configuration "Debug"
+configuration {"Debug", "x32"}
   defines { "WIN32", "_DEBUG", "_WINDOWS", "_UNICODE", "UNICODE", "%(PreprocessorDefinitions)" }
   links {"D3D11", "D3DCompiler"}
   links {"kernel32","user32","gdi32","winspool","comdlg32","advapi32","shell32","ole32","oleaut32","uuid","odbc32","odbccp32"}
+  flags {"ExtraWarnings"}
+  -- To reproduce the linker bug reported in https://github.com/bkaradzic/GENie/issues/266
+  -- comment out the two lines below.
+  linkoptions {"/PDB:pdbs/output-dx32.pdb"}
+  targetsuffix "-d"
+
+configuration {"Debug", "x64"}
+  defines { "WIN32", "_DEBUG", "_WINDOWS", "_UNICODE", "UNICODE", "%(PreprocessorDefinitions)" }
+  links {"D3D11", "D3DCompiler"}
+  links {"kernel32","user32","gdi32","winspool","comdlg32","advapi32","shell32","ole32","oleaut32","uuid","odbc32","odbccp32"}
+  flags {"ExtraWarnings"}
+  -- To reproduce the linker bug reported in https://github.com/bkaradzic/GENie/issues/266
+  -- comment out the two lines below.
+  linkoptions {"/PDB:pdbs/output-dx64.pdb"}
+  targetsuffix "-d"
 
 -- configuration for Release
-configuration "Release"
+configuration {"Release", "x32"}
   defines { "WIN32", "NDEBUG", "_WINDOWS", "_UNICODE", "UNICODE", "%(PreprocessorDefinitions)" }
   links {"D3D11", "D3DCompiler"}
   links {"kernel32","user32","gdi32","winspool","comdlg32","advapi32","shell32","ole32","oleaut32","uuid","odbc32","odbccp32"}
+  flags {"Optimize", "ExtraWarnings"}
 
-project "dummy"
-    kind "ConsoleApp"
-    files { "dummy.c" }
-    excludes { "dummy.c" }
+configuration {"Release", "x64"}
+  defines { "WIN32", "NDEBUG", "_WINDOWS", "_UNICODE", "UNICODE", "%(PreprocessorDefinitions)" }
+  links {"D3D11", "D3DCompiler"}
+  links {"kernel32","user32","gdi32","winspool","comdlg32","advapi32","shell32","ole32","oleaut32","uuid","odbc32","odbccp32"}
+  flags {"Optimize", "ExtraWarnings"}
 
 -- our first project
 project "intro01"
   PROJ_DIR = path.join(WORKSPACE_DIR, "intro01")
-  flags { "WinMain"}
+  flags { "WinMain", "NoExceptions"}
 
   kind "WindowedApp"
 
