@@ -37,7 +37,9 @@ os.mkdir(PDB_DIR)
 -- configureations for Debug
 configuration {"Debug", "x32"}
   defines { "WIN32", "_DEBUG", "_WINDOWS", "_UNICODE", "UNICODE", "%(PreprocessorDefinitions)" }
+  libdirs { path.join(THIRD_PARTY_DIR, "assimp/lib/win32/Debug")}
   links {"D3D11", "D3DCompiler"}
+  links {"assimp-vc140-mt","zlibstaticd"}
   links {"kernel32","user32","gdi32","winspool","comdlg32","advapi32","shell32","ole32","oleaut32","uuid","odbc32","odbccp32"}
   flags {"ExtraWarnings"}
   -- To reproduce the linker bug reported in https://github.com/bkaradzic/GENie/issues/266
@@ -47,7 +49,9 @@ configuration {"Debug", "x32"}
 
 configuration {"Debug", "x64"}
   defines { "WIN32", "_DEBUG", "_WINDOWS", "_UNICODE", "UNICODE", "%(PreprocessorDefinitions)" }
+  libdirs { path.join(THIRD_PARTY_DIR, "assimp/lib/win64/Debug")}
   links {"D3D11", "D3DCompiler"}
+  links {"assimp-vc140-mt","zlibstaticd"}
   links {"kernel32","user32","gdi32","winspool","comdlg32","advapi32","shell32","ole32","oleaut32","uuid","odbc32","odbccp32"}
   flags {"ExtraWarnings"}
   -- To reproduce the linker bug reported in https://github.com/bkaradzic/GENie/issues/266
@@ -58,13 +62,17 @@ configuration {"Debug", "x64"}
 -- configuration for Release
 configuration {"Release", "x32"}
   defines { "WIN32", "NDEBUG", "_WINDOWS", "_UNICODE", "UNICODE", "%(PreprocessorDefinitions)" }
+  libdirs { path.join(THIRD_PARTY_DIR, "assimp/lib/win32/Release") }
   links {"D3D11", "D3DCompiler"}
+  links {"assimp-vc140-mt","zlibstatic"}
   links {"kernel32","user32","gdi32","winspool","comdlg32","advapi32","shell32","ole32","oleaut32","uuid","odbc32","odbccp32"}
   flags {"Optimize", "ExtraWarnings"}
 
 configuration {"Release", "x64"}
   defines { "WIN32", "NDEBUG", "_WINDOWS", "_UNICODE", "UNICODE", "%(PreprocessorDefinitions)" }
+  libdirs { path.join(THIRD_PARTY_DIR, "assimp/lib/win64/Release") }
   links {"D3D11", "D3DCompiler"}
+  links {"assimp-vc140-mt","zlibstatic"}
   links {"kernel32","user32","gdi32","winspool","comdlg32","advapi32","shell32","ole32","oleaut32","uuid","odbc32","odbccp32"}
   flags {"Optimize", "ExtraWarnings"}
 
@@ -78,6 +86,7 @@ project "intro01"
   includedirs {
     path.join(PROJ_DIR, "src"),
     path.join(THIRD_PARTY_DIR, "EASTL/include"),
+    path.join(THIRD_PARTY_DIR, "assimp/include")
   }
 
   files {
