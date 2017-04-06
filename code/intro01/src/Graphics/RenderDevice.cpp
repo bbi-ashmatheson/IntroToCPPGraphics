@@ -63,7 +63,7 @@ bool RenderDevice::Init( HWND _hwnd, UINT _width, UINT _height, BOOL _windowed )
     swapChainDesc.OutputWindow = _hwnd;
     swapChainDesc.SampleDesc.Count = 1;
     swapChainDesc.SampleDesc.Quality = 0;
-    swapChainDesc.Windowed = TRUE;
+    swapChainDesc.Windowed = _windowed;
 
     if( FAILED( D3D11CreateDeviceAndSwapChain( 
                     NULL, 
