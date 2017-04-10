@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "Intro01.h"
+#include "AssetManagement\AssetManager.h"
 #include "Resource.h"
 
 //==============================================
@@ -32,6 +33,7 @@ LRESULT CALLBACK    WndProc( HWND, UINT, WPARAM, LPARAM );
 //--------------------------------------------------------------------------------------
 RenderDevice    gRenderDevice;
 VisualGrid*     gVisualGrid = NULL;
+AssetManager    gAssetManager;
 HINSTANCE	    gHInst = NULL;
 HWND		    gHWnd	= NULL;
 
@@ -133,6 +135,10 @@ HRESULT InitWindow( HINSTANCE _instance, int _cmdShow )
 HRESULT InitResources( void )
 {
     gVisualGrid = gRenderDevice.CreateVisualGrid();
+
+    gAssetManager.AddPath("assets\raw");
+    gAssetManager.LoadMesh("lte-orb.fbx");
+
     return S_FALSE;
 }
 
@@ -162,3 +168,4 @@ LRESULT CALLBACK WndProc( HWND _hWnd, UINT _msg, WPARAM _wParam, LPARAM _lParam 
 
     return 0;
 }
+

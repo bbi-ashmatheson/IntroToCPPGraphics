@@ -14,3 +14,16 @@ AssetManager::AssetManager()
 AssetManager::~AssetManager()
 {
 }
+
+
+bool AssetManager::AddPath(const char* pathname)
+{
+    // check to see if path exists before adding?
+    mPaths.push_back(eastl::string(pathname));
+    return false;
+}
+
+bool AssetManager::LoadMesh(const char* filename)
+{
+    return false;
+}
