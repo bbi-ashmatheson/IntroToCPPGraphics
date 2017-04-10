@@ -20,10 +20,12 @@ bool AssetManager::AddPath(const char* pathname)
 {
     // check to see if path exists before adding?
     mPaths.push_back(eastl::string(pathname));
-    return false;
+    return mPaths.size() > 0;
 }
 
 bool AssetManager::LoadMesh(const char* filename)
 {
+    // does the file exist on-disk?
+
     return false;
 }

@@ -136,10 +136,14 @@ HRESULT InitResources( void )
 {
     gVisualGrid = gRenderDevice.CreateVisualGrid();
 
-    gAssetManager.AddPath("assets\raw");
+    if (!gAssetManager.AddPath("assets\raw"))
+    {
+        return S_FALSE;
+    }
+
     gAssetManager.LoadMesh("lte-orb.fbx");
 
-    return S_FALSE;
+    return S_OK;
 }
 
 //--------------------------------------------------------------------------------------
