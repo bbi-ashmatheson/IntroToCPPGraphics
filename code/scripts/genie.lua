@@ -94,7 +94,7 @@ project "intro01"
   flags { "WinMain", "NoExceptions"}
 
   kind "WindowedApp"
-  debugdir "$(TargetPath)"
+  debugdir "$(TargetDir)"
 
   includedirs {
     path.join(PROJ_DIR, "src"),
