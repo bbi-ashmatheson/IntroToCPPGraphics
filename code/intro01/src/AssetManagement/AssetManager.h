@@ -16,9 +16,12 @@ public:
     AssetManager();
     ~AssetManager();
 
+    void Initialize();
+
     bool AddPath(const char* pathname);
     bool LoadMesh(const char* filename);
 
 private:
-    eastl::vector<eastl::string>   mPaths;
+    eastl::string                   mBasePath;
+    eastl::vector<eastl::string>    mPaths;
 };

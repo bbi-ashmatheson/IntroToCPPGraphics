@@ -94,10 +94,16 @@ project "intro01"
   flags { "WinMain", "NoExceptions"}
 
   kind "WindowedApp"
+  debugdir "$(TargetPath)"
 
   includedirs {
     path.join(PROJ_DIR, "src"),
     path.join(THIRD_PARTY_DIR, "EASTL/include"),
+    path.join(THIRD_PARTY_DIR, "EASTL/packages/EAStdC/include"),
+    path.join(THIRD_PARTY_DIR, "EASTL/packages/EAAssert/include"),
+    path.join(THIRD_PARTY_DIR, "EASTL/packages/EATest/include"),
+    path.join(THIRD_PARTY_DIR, "EASTL/packages/EAMain/include"),
+    path.join(THIRD_PARTY_DIR, "EASTL/packages/EAThread/include"),
     path.join(THIRD_PARTY_DIR, "assimp/include")
   }
 
@@ -105,7 +111,9 @@ project "intro01"
     path.join(PROJ_DIR, "src/**.h"),
     path.join(PROJ_DIR, "src/**.cpp"),
     path.join(PROJ_DIR, "src/Intro01.rc"),
-    path.join(THIRD_PARTY_DIR, "EASTL/source/*.cpp")
+    path.join(THIRD_PARTY_DIR, "EASTL/source/*.cpp"),
+    path.join(THIRD_PARTY_DIR, "EASTL/packages/**.h"),
+    path.join(THIRD_PARTY_DIR, "EASTL/packages/**.cpp")
   }
 
   resoptions {

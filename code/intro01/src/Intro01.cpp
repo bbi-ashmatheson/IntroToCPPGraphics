@@ -136,7 +136,9 @@ HRESULT InitResources( void )
 {
     gVisualGrid = gRenderDevice.CreateVisualGrid();
 
-    if (!gAssetManager.AddPath("assets\raw"))
+    gAssetManager.Initialize();
+
+    if (!gAssetManager.AddPath("assets\\raw"))
     {
         return S_FALSE;
     }

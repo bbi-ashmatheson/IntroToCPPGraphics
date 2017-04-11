@@ -6,6 +6,7 @@
 #include "stdafx.h"
 #include "AssetManager.h"
 #include "IResourceLoader.h"
+#include "utils\utils.h"
 
 AssetManager::AssetManager()
 {
@@ -15,17 +16,46 @@ AssetManager::~AssetManager()
 {
 }
 
+void AssetManager::Initialize()
+{
+    mBasePath = Pwd();
+}
 
 bool AssetManager::AddPath(const char* pathname)
 {
+    bool result = false;
     // check to see if path exists before adding?
-    mPaths.push_back(eastl::string(pathname));
-    return mPaths.size() > 0;
+    if (Exists(pathname))
+    {
+        mPaths.push_back(eastl::string(pathname));
+        result = (mPaths.size() > 0);
+    }
+
+    return result;
 }
 
 bool AssetManager::LoadMesh(const char* filename)
 {
-    // does the file exist on-disk?
+    bool result = false;
 
-    return false;
+    eastl::string normalized;
+    for (auto path : mPaths)
+    {
+        eastl::string filePath;
+        filePath.append_sprintf("%s\\%s\\%s", mBasePath.c_str(), path.c_str(), filename);
+        if (Exists(filePath.c_str()))
+        {
+            normalized = filePath;
+            break;
+        }
+    }
+
+    // Build the asset, since the file exists
+    if (normalized.length() != 0)
+    {
+
+        result = true;
+    }
+
+    return result;
 }
