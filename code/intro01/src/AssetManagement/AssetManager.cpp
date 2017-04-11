@@ -6,7 +6,11 @@
 #include "stdafx.h"
 #include "AssetManager.h"
 #include "IResourceLoader.h"
+#include "utils\assert.h"
 #include "utils\utils.h"
+
+#include "assimp\cimport.h"
+#include "assimp\scene.h"
 
 AssetManager::AssetManager()
 {
@@ -53,6 +57,20 @@ bool AssetManager::LoadMesh(const char* filename)
     // Build the asset, since the file exists
     if (normalized.length() != 0)
     {
+        const aiScene* scene = aiImportFile(normalized.c_str(), 0);
+
+        // Some quick asserts to make sure we have data to work with
+        ASSERT(scene != nullptr);
+        ASSERT(scene->HasMeshes());
+        ASSERT(scene->HasMaterials());
+
+        // Construct away!
+        if ((scene != nullptr)
+            && scene->HasMeshes()
+            && scene->HasMaterials())
+        {
+
+        }
 
         result = true;
     }
