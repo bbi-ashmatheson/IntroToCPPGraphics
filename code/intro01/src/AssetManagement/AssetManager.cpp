@@ -1,7 +1,7 @@
 ///
 /// AssetManager.cpp - source code for the AssetManager System
 /// Wherein we track, create and release various assets necessary for the application.
-/// 
+///
 
 #include "stdafx.h"
 #include "AssetManager.h"
@@ -11,6 +11,8 @@
 
 #include "assimp\cimport.h"
 #include "assimp\scene.h"
+
+#include "MeshResourceLoader.h"
 
 AssetManager::AssetManager()
 {
@@ -27,6 +29,8 @@ void AssetManager::Initialize()
 
 bool AssetManager::AddPath(const char* pathname)
 {
+    ASSERT(pathname != nullptr);
+
     bool result = false;
     // check to see if path exists before adding?
     if (Exists(pathname))
@@ -40,6 +44,8 @@ bool AssetManager::AddPath(const char* pathname)
 
 bool AssetManager::LoadMesh(const char* filename)
 {
+    ASSERT(filename != nullptr);
+
     bool result = false;
 
     eastl::string normalized;
@@ -59,17 +65,20 @@ bool AssetManager::LoadMesh(const char* filename)
     {
         const aiScene* scene = aiImportFile(normalized.c_str(), 0);
 
-        // Some quick asserts to make sure we have data to work with
-        ASSERT(scene != nullptr);
-        ASSERT(scene->HasMeshes());
-        ASSERT(scene->HasMaterials());
-
         // Construct away!
         if ((scene != nullptr)
             && scene->HasMeshes()
             && scene->HasMaterials())
+        {            
+            MeshResourceLoader meshLoader;
+            meshLoader.Load(*(scene->mMeshes));
+        }
+        else
         {
-
+            // Some quick asserts to make sure we have data to work with
+            ASSERT(scene != nullptr);
+            ASSERT(scene->HasMeshes());
+            ASSERT(scene->HasMaterials());
         }
 
         result = true;
