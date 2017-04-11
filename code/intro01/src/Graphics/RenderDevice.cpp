@@ -36,14 +36,6 @@ RenderDevice::~RenderDevice(void)
 
 bool RenderDevice::Init( HWND _hwnd, UINT _width, UINT _height, BOOL _windowed )
 {
-    D3D_DRIVER_TYPE driverTypes[] =
-    {
-        D3D_DRIVER_TYPE_HARDWARE,
-        D3D_DRIVER_TYPE_WARP,
-        D3D_DRIVER_TYPE_REFERENCE,
-    };
-    UINT numDriverTypes = ARRAYSIZE( driverTypes );
-
     D3D_FEATURE_LEVEL featureLevels[] =
     {
         D3D_FEATURE_LEVEL_11_1,

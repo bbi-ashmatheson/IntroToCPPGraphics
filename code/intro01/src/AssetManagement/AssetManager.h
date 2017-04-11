@@ -4,6 +4,9 @@
 /// 
 #pragma once
 
+#include "EASTL\vector.h"
+#include "EASTL\string.h"
+
 class IResource;
 
 class AssetManager
@@ -13,6 +16,12 @@ public:
     AssetManager();
     ~AssetManager();
 
-private:
+    void Initialize();
 
+    bool AddPath(const char* pathname);
+    bool LoadMesh(const char* filename);
+
+private:
+    eastl::string                   mBasePath;
+    eastl::vector<eastl::string>    mPaths;
 };
