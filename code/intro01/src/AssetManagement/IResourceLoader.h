@@ -4,23 +4,14 @@
 
 #pragma once
 
-class IResource
+class IResourceLoader
 {
 public:
-    IResource();
-    virtual ~IResource() = 0;
+    IResourceLoader();
+    virtual ~IResourceLoader() = 0;
 
     virtual void LoadFromFile(const char* filename) = 0;
-
-    unsigned int GetID() { return mResourceID; }
-
-private:
-   void SetID(unsigned int id) { mResourceID = id; }
-
-protected:
-    unsigned int mResourceID;
 };
 
-IResource::IResource()
-{
-}
+IResourceLoader::IResourceLoader() {}
+IResourceLoader::~IResourceLoader() {}
