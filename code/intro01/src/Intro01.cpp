@@ -12,8 +12,10 @@
 //   We output any caught memory leaks here.
 //   See details here: https://msdn.microsoft.com/en-us/library/x98tx3cf.aspx
 #if defined(DEBUG) || defined(_DEBUG)
-#include "crtdbg.h"
 #define _CRTDBG_MAP_ALLOC
+#define _CRTDBG_MAP_ALLOC_NEW
+#include <stdlib.h>
+#include "crtdbg.h"
 #endif
 //==============================================
 
@@ -38,10 +40,10 @@ HINSTANCE	    gHInst = NULL;
 HWND		    gHWnd	= NULL;
 
 
-int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-                     _In_opt_ HINSTANCE hPrevInstance,
-                     _In_ LPWSTR    lpCmdLine,
-                     _In_ int       nCmdShow)
+int APIENTRY wWinMain(_In_      HINSTANCE hInstance,
+                     _In_opt_   HINSTANCE hPrevInstance,
+                     _In_       LPWSTR    lpCmdLine,
+                     _In_       int       nCmdShow)
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);

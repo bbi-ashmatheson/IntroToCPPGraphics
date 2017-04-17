@@ -3,7 +3,8 @@
 ///
 #pragma once
 
-struct aiMesh;
+struct aiScene;
+class Model;
 
 class MeshResourceLoader
 {
@@ -11,7 +12,7 @@ public:
     MeshResourceLoader();
     ~MeshResourceLoader();
 
-    bool Load(aiMesh* mesh);
+    Model* Load(const aiScene* scene);
 
 private:
 

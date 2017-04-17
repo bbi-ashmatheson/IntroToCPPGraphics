@@ -7,11 +7,12 @@
 #include "EASTL\vector.h"
 #include "EASTL\string.h"
 
-class IResource;
+class IResourceLoader;
+class Model;
 
 class AssetManager
 {
-    friend class IResource;
+    friend class IResourceLoader;
 public:
     AssetManager();
     ~AssetManager();
@@ -19,9 +20,16 @@ public:
     void Initialize();
 
     bool AddPath(const char* pathname);
+
+
     bool LoadMesh(const char* filename);
+
+private:
+    bool GetPathToResource(const char* resource, char* dest, unsigned int size);
 
 private:
     eastl::string                   mBasePath;
     eastl::vector<eastl::string>    mPaths;
+
+    eastl::vector<Model*>            mModels;
 };

@@ -13,6 +13,7 @@
 #include "assimp\scene.h"
 
 #include "MeshResourceLoader.h"
+#include "Graphics\Model.h"
 
 AssetManager::AssetManager()
 {
@@ -20,6 +21,10 @@ AssetManager::AssetManager()
 
 AssetManager::~AssetManager()
 {
+    for (auto model : mModels)
+    {
+        delete model;
+    }
 }
 
 void AssetManager::Initialize()
@@ -47,31 +52,23 @@ bool AssetManager::LoadMesh(const char* filename)
     ASSERT(filename != nullptr);
 
     bool result = false;
+    char filepath[1024];
 
-    eastl::string normalized;
-    for (auto path : mPaths)
-    {
-        eastl::string filePath;
-        filePath.append_sprintf("%s\\%s\\%s", mBasePath.c_str(), path.c_str(), filename);
-        if (Exists(filePath.c_str()))
-        {
-            normalized = filePath;
-            break;
-        }
-    }
+    result = GetPathToResource(filename, filepath, 1024);
 
     // Build the asset, since the file exists
-    if (normalized.length() != 0)
+    if (result)
     {
-        const aiScene* scene = aiImportFile(normalized.c_str(), 0);
-
+        const aiScene* scene = aiImportFile(filepath, 0);
+        
         // Construct away!
         if ((scene != nullptr)
             && scene->HasMeshes()
             && scene->HasMaterials())
         {            
             MeshResourceLoader meshLoader;
-            meshLoader.Load(*(scene->mMeshes));
+            Model* model = meshLoader.Load(scene);
+            mModels.push_back(model);
         }
         else
         {
@@ -80,8 +77,29 @@ bool AssetManager::LoadMesh(const char* filename)
             ASSERT(scene->HasMeshes());
             ASSERT(scene->HasMaterials());
         }
+        aiReleaseImport(scene);
+    }
+    return result;
+}
 
-        result = true;
+bool AssetManager::GetPathToResource(const char* resource, char* dest, unsigned int size)
+{
+    ASSERT(resource != nullptr);
+    ASSERT(dest != nullptr);
+
+    bool result = false;
+    eastl::string normalized;
+    for (auto path : mPaths)
+    {
+        eastl::string filePath;
+        filePath.append_sprintf("%s\\%s\\%s", mBasePath.c_str(), path.c_str(), resource);
+        if (Exists(filePath.c_str()))
+        {
+            normalized = filePath;
+            strcpy(dest, filePath.c_str());
+            result = true;
+            break;
+        }
     }
 
     return result;
